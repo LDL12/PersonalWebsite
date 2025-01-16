@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Extensions.Options;
+
 namespace Web
 {
     public class Program
