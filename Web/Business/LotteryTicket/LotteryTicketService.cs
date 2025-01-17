@@ -1,27 +1,37 @@
-﻿using Common.Algorithm;
-using Common;
-using Microsoft.AspNetCore.Mvc;
+﻿using Common;
+using Common.Algorithm;
 using Model.LotteryTicket;
 using System.Diagnostics;
+using System.Net.Http;
 using Web.Models;
 
-namespace Web.Controllers
+namespace Web.Business.LotteryTicket
 {
-    public class LotteryTicketController : Controller
+    public class LotteryTicketService
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public LotteryTicketController(IHttpClientFactory httpClientFactory)
+        public LotteryTicketService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<string?> GetTanShuCaiPiao(int? issueno = null)
+        /// <summary>
+        /// 探数彩票接口Url
+        /// </summary>
+        private readonly string TanShuCaiPiaoUrl = "https://api.tanshuapi.com/api/caipiao/v1/query?key=24f6d9a2ecf990685691a5506cb26789&caipiaoid=14";
+
+        /// <summary>
+        /// 调用探数彩票接口获取数据
+        /// </summary>
+        /// <param name="issueno">期号，不传查询最新一期</param>
+        /// <returns></returns>
+        private async Task<string?> GetTanShuCaiPiao(int? issueno = null)
         {
             string? result;
             try
             {
-                var url = "https://api.tanshuapi.com/api/caipiao/v1/query?key=24f6d9a2ecf990685691a5506cb26789&caipiaoid=14";
+                var url = TanShuCaiPiaoUrl;
                 if (issueno.HasValue)
                 {
                     url += $"&issueno={issueno}";
@@ -39,13 +49,13 @@ namespace Web.Controllers
             return result;
         }
 
-        public async Task<IActionResult> Index()
+        public async Tuple<List<decimal>, List<decimal>> sss()
         {
             //获取当期彩票
             var data = await GetTanShuCaiPiao();
             if (string.IsNullOrEmpty(data))
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                throw new Exception("没有加载到当");
             }
 
             //当期彩票数据解析
@@ -86,8 +96,11 @@ namespace Web.Controllers
                 result1.Add(TripleExponentialSmoothingAlgorithm.CalcAccuratePredictiveValue(array));
                 result2.Add(LinearRegressionAlgorithm.CalcPredictiveValue(array));
             }
-
-            return View();
         }
+
+
+
+
+
     }
 }

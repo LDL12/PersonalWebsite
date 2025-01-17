@@ -12,6 +12,9 @@ namespace Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //Add services to http
+            builder.Services.AddHttpClient();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
