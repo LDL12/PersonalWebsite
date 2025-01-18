@@ -87,6 +87,7 @@ namespace Web.Controllers
                 result2.Add(LinearRegressionAlgorithm.CalcPredictiveValue(array));
             }
 
+
             return View();
         }
     }
