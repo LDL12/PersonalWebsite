@@ -1,6 +1,29 @@
 ﻿@{
     ViewData["Title"] = "彩票预测";
 }
-<div>
-    <input type="text" />
+<div style="text-align:center;padding:10px;">
+    <div style="margin-top:50px">
+        <button type="button" class="btn btn-outline-primary btn-lg" onclick="Predicte()">立即预测</button>
+    </div>
+    <div style="margin-top:50px;">
+        <pre id="result"></pre>
+    </div>
 </div>
+@section Scripts {
+    <script>
+        function Predicte()
+        {
+            $.custom.post('/LotteryTicket/PredicteLotteryTicket', null, function (result)
+            {
+                if (result.isSuccess)
+                {
+                    $("#result").text(result.data);
+                }
+                else
+                {
+                    alert(result.message);
+                }
+            });
+        }
+    </script>
+}

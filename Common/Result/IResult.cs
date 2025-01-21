@@ -14,7 +14,12 @@ namespace Common.Result
         int Code { get; set; }
 
         /// <summary>
-        /// 异常信息
+        /// 提示信息
+        /// </summary>
+        string Message { get; set; }
+
+        /// <summary>
+        /// 异常
         /// </summary>
         Exception Exception { get; set; }
 
