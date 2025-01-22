@@ -13,7 +13,7 @@ namespace Model.LotteryTicket
     public class TanShuCaiPiao14Model
     {
         [JsonProperty("data")]
-        public TanShuCaiPiao14DataModel? Data { get; set; }
+        public TanShuCaiPiao14DataModel Data { get; set; }
     }
 
     public class TanShuCaiPiao14DataModel
@@ -22,9 +22,9 @@ namespace Model.LotteryTicket
         public int Issueno { get; set; }
 
         [JsonProperty("number")]
-        public string? Number { get; set; }
+        public string Number { get; set; }
 
         [JsonProperty("refernumber")]
-        public string? Refernumber { get; set; }
+        public string Refernumber { get; set; }
     }
 }
